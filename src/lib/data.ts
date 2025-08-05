@@ -1,5 +1,5 @@
 import type { LucideIcon } from "lucide-react";
-import { Wheat, Carrot, Sprout, Apple, Leaf, Sun, Snowflake, CloudRain, Wind, TreePine } from "lucide-react";
+import { Wheat, Carrot, Sprout, Apple, Leaf, Sun, Snowflake, CloudRain } from "lucide-react";
 
 export const SOIL_TYPES = ['Sandy', 'Clay', 'Loamy', 'Silty', 'Peaty', 'Chalky'];
 export const SEASONS = ['Summer', 'Monsoon', 'Winter', 'Autumn', 'Spring'];
@@ -10,6 +10,12 @@ export interface Crop {
   season: string[];
   icon: LucideIcon;
   description: string;
+  calendar: {
+    sow: string;
+    fertilize: string;
+    irrigate: string;
+    harvest: string;
+  };
 }
 
 export const CROPS: Crop[] = [
@@ -18,56 +24,104 @@ export const CROPS: Crop[] = [
     soil: ['Loamy', 'Clay'],
     season: ['Winter', 'Spring'],
     icon: Wheat,
-    description: 'A staple cereal grain grown worldwide.'
+    description: 'A staple cereal grain grown worldwide.',
+    calendar: {
+        sow: 'October - December',
+        fertilize: 'November & January',
+        irrigate: 'Critical stages: Crown Root, Tillering, Flowering',
+        harvest: 'March - April',
+    }
   },
   {
     name: 'Tomato',
     soil: ['Sandy', 'Loamy'],
     season: ['Summer', 'Autumn'],
     icon: Apple,
-    description: 'A popular fruit, botanically a berry, used in many cuisines.'
+    description: 'A popular fruit, botanically a berry, used in many cuisines.',
+    calendar: {
+        sow: 'March - June',
+        fertilize: 'Every 2-3 weeks after transplanting',
+        irrigate: 'Consistent watering, 1-2 inches per week',
+        harvest: 'July - September',
+    }
   },
   {
     name: 'Potato',
     soil: ['Sandy', 'Silty', 'Peaty'],
     season: ['Spring', 'Summer'],
     icon: Sprout,
-    description: 'A starchy tuber, one of the world\'s main food crops.'
+    description: 'A starchy tuber, one of the world\'s main food crops.',
+    calendar: {
+        sow: 'March - April',
+        fertilize: 'At planting and when plants are 6-8 inches tall',
+        irrigate: 'Keep soil evenly moist, especially during tuber formation',
+        harvest: 'July - August',
+    }
   },
   {
     name: 'Carrot',
     soil: ['Sandy', 'Loamy', 'Peaty'],
     season: ['Spring', 'Autumn'],
     icon: Carrot,
-    description: 'A root vegetable, usually orange in color.'
+    description: 'A root vegetable, usually orange in color.',
+    calendar: {
+        sow: 'April - July',
+        fertilize: '4-6 weeks after sowing, low nitrogen',
+        irrigate: 'Regularly to prevent splitting',
+        harvest: 'July - October',
+    }
   },
   {
     name: 'Lettuce',
     soil: ['Silty', 'Loamy'],
     season: ['Spring', 'Autumn'],
     icon: Leaf,
-    description: 'A leaf vegetable, often used in salads and sandwiches.'
+    description: 'A leaf vegetable, often used in salads and sandwiches.',
+    calendar: {
+        sow: 'March - August (successive sowings)',
+        fertilize: '3 weeks after transplanting',
+        irrigate: 'Shallow, frequent watering',
+        harvest: 'May - October',
+    }
   },
   {
     name: 'Corn',
     soil: ['Loamy', 'Silty'],
     season: ['Summer'],
     icon: Sun,
-    description: 'A tall annual cereal grass that yields large grains, or kernels, set in rows on a cob.'
+    description: 'A tall annual cereal grass that yields large grains, or kernels, set in rows on a cob.',
+    calendar: {
+        sow: 'May - June',
+        fertilize: 'When plants are knee-high and at tasseling',
+        irrigate: 'Critical during silking and pollination',
+        harvest: 'August - September',
+    }
   },
   {
     name: 'Rice',
     soil: ['Clay', 'Silty'],
     season: ['Monsoon'],
     icon: CloudRain,
-    description: 'The seed of the grass species Oryza sativa (Asian rice) or less commonly Oryza glaberrima (African rice).'
+    description: 'The seed of the grass species Oryza sativa (Asian rice) or less commonly Oryza glaberrima (African rice).',
+    calendar: {
+        sow: 'June - July (transplanting)',
+        fertilize: 'Basal dose, tillering, and panicle initiation stages',
+        irrigate: 'Maintain flooded conditions for most of the cycle',
+        harvest: 'October - November',
+    }
   },
   {
     name: 'Cabbage',
     soil: ['Loamy', 'Clay'],
     season: ['Winter', 'Spring'],
     icon: Snowflake,
-    description: 'A leafy green, red (purple), or white (pale green) biennial plant grown as an annual vegetable crop.'
+    description: 'A leafy green, red (purple), or white (pale green) biennial plant grown as an annual vegetable crop.',
+    calendar: {
+        sow: 'March - May (spring) or July - August (autumn)',
+        fertilize: 'When heads start to form',
+        irrigate: 'Consistently to prevent head splitting',
+        harvest: 'June - July (spring) or October - November (autumn)',
+    }
   }
 ];
 

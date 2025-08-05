@@ -20,6 +20,7 @@ import FertilizerInfo from "@/components/agromate/FertilizerInfo"
 import WeatherDisplay from "@/components/agromate/WeatherDisplay"
 import { Skeleton } from "@/components/ui/skeleton"
 import DownloadReport from "@/components/agromate/DownloadReport"
+import FarmingCalendar from "@/components/agromate/FarmingCalendar"
 
 export default function AgroMatePage() {
   const [soilType, setSoilType] = useState<string>("")
@@ -254,6 +255,7 @@ export default function AgroMatePage() {
                  <FertilizerInfo fertilizer={fertilizerInfo} selectedCrop={selectedCrop} />
               </div>
             </div>
+             <FarmingCalendar selectedCrop={selectedCrop} />
           </div>
 
         </div>
