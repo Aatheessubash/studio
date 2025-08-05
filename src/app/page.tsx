@@ -151,9 +151,9 @@ export default function AgroMatePage() {
       </header>
 
       <main className="flex-1 p-4 sm:p-6 md:p-8">
-        <div className="grid grid-cols-1 gap-8 lg:grid-cols-3 xl:grid-cols-4">
+        <div className="grid grid-cols-1 gap-8 md:grid-cols-2 xl:grid-cols-3">
           
-          <div className="flex flex-col gap-8 xl:col-span-1">
+          <div className="flex flex-col gap-8 md:col-span-1">
             <Card className="animate-in fade-in duration-500">
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
@@ -225,37 +225,30 @@ export default function AgroMatePage() {
                 </div>
               </CardContent>
             </Card>
+
+            {isWeatherLoading ? (
+              <Card className="h-full">
+                <CardHeader><Skeleton className="h-6 w-3/4" /></CardHeader>
+                <CardContent className="space-y-4">
+                  <Skeleton className="h-10 w-1/2" />
+                  <Skeleton className="h-6 w-full" />
+                  <Skeleton className="h-20 w-full" />
+                </CardContent>
+              </Card>
+            ) : (
+              <WeatherDisplay weatherData={weatherData} />
+            )}
           </div>
 
-          <div className="flex flex-col gap-8 lg:col-span-2 xl:col-span-3">
-            <div className="grid grid-cols-1 gap-8 xl:grid-cols-3">
-              <div className="xl:col-span-2">
-                <CropSuggestions 
-                  crops={suggestedCrops} 
-                  isLoading={isCropsLoading}
-                  onSelectCrop={handleSelectCrop}
-                  selectedCrop={selectedCrop}
-                />
-              </div>
-              <div className="row-start-1 xl:col-start-3">
-                 {isWeatherLoading ? (
-                    <Card className="h-full">
-                      <CardHeader><Skeleton className="h-6 w-3/4" /></CardHeader>
-                      <CardContent className="space-y-4">
-                        <Skeleton className="h-10 w-1/2" />
-                        <Skeleton className="h-6 w-full" />
-                        <Skeleton className="h-20 w-full" />
-                      </CardContent>
-                    </Card>
-                  ) : (
-                    <WeatherDisplay weatherData={weatherData} />
-                  )}
-              </div>
-              <div className="xl:col-span-2">
-                 <FertilizerInfo fertilizer={fertilizerInfo} selectedCrop={selectedCrop} />
-              </div>
-            </div>
-             <FarmingCalendar selectedCrop={selectedCrop} />
+          <div className="flex flex-col gap-8 md:col-span-1 xl:col-span-2">
+            <CropSuggestions 
+              crops={suggestedCrops} 
+              isLoading={isCropsLoading}
+              onSelectCrop={handleSelectCrop}
+              selectedCrop={selectedCrop}
+            />
+            <FertilizerInfo fertilizer={fertilizerInfo} selectedCrop={selectedCrop} />
+            <FarmingCalendar selectedCrop={selectedCrop} />
           </div>
 
         </div>
