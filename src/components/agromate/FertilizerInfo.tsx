@@ -3,7 +3,7 @@
 import type { FC } from 'react';
 import type { Crop, Fertilizer } from '@/lib/data';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { FlaskConical, TestTube, Lightbulb } from 'lucide-react';
+import { FlaskConical, TestTube, Lightbulb, Recycle } from 'lucide-react';
 
 interface FertilizerInfoProps {
   fertilizer: Fertilizer | null;
@@ -59,7 +59,7 @@ const FertilizerInfo: FC<FertilizerInfoProps> = ({ fertilizer, selectedCrop }) =
             <span>Fertilizer for {selectedCrop.name}</span>
         </CardTitle>
         <CardDescription>
-          Recommended fertilizers and application tips.
+          Recommended fertilizers, tips, and natural alternatives.
         </CardDescription>
       </CardHeader>
       <CardContent className="space-y-4">
@@ -68,7 +68,7 @@ const FertilizerInfo: FC<FertilizerInfoProps> = ({ fertilizer, selectedCrop }) =
                 <TestTube className="h-5 w-5 text-primary" />
             </div>
             <div>
-                <h3 className="font-semibold text-secondary-foreground">Usage</h3>
+                <h3 className="font-semibold text-secondary-foreground">Chemical Usage</h3>
                 <p className="text-sm text-muted-foreground">{fertilizer.name}</p>
                 <p className="text-sm font-medium text-foreground">{fertilizer.usage}</p>
             </div>
@@ -80,6 +80,15 @@ const FertilizerInfo: FC<FertilizerInfoProps> = ({ fertilizer, selectedCrop }) =
             <div>
                 <h3 className="font-semibold text-accent-foreground">Application Tips</h3>
                 <p className="text-sm text-muted-foreground">{fertilizer.tips}</p>
+            </div>
+        </div>
+        <div className="flex items-start gap-4 rounded-lg border border-green-200 dark:border-green-800/50 bg-green-50/50 dark:bg-green-900/20 p-4">
+            <div className="flex h-10 w-10 items-center justify-center rounded-full bg-green-100 dark:bg-green-800/50">
+                <Recycle className="h-5 w-5 text-green-600 dark:text-green-300" />
+            </div>
+            <div>
+                <h3 className="font-semibold text-green-800 dark:text-green-200">Organic Alternatives</h3>
+                <p className="text-sm text-muted-foreground">{fertilizer.naturalAlternatives}</p>
             </div>
         </div>
       </CardContent>

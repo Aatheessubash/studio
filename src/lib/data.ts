@@ -129,48 +129,57 @@ export interface Fertilizer {
   name: string;
   usage: string;
   tips: string;
+  naturalAlternatives: string;
 }
 
 export const FERTILIZER_DATA: Record<string, Fertilizer> = {
   'Wheat': {
     name: 'Urea & DAP',
     usage: '120kg/ha Urea, 60kg/ha DAP',
-    tips: 'Apply DAP at sowing time. Split Urea application into 3 stages for best results.'
+    tips: 'Apply DAP at sowing time. Split Urea application into 3 stages for best results.',
+    naturalAlternatives: 'Use well-rotted farmyard manure or vermicompost as a basal dressing. For pest control, use a neem oil spray.'
   },
   'Tomato': {
     name: 'NPK 19-19-19 & Calcium Nitrate',
     usage: '5g/liter NPK, 2g/liter Calcium Nitrate',
-    tips: 'Start with NPK during vegetative growth. Use Calcium Nitrate during flowering and fruiting to prevent blossom end rot.'
+    tips: 'Start with NPK during vegetative growth. Use Calcium Nitrate during flowering and fruiting to prevent blossom end rot.',
+    naturalAlternatives: 'Compost tea and crushed eggshells (for calcium) are great. Plant marigolds nearby to repel nematodes.'
   },
   'Potato': {
     name: 'Potassium Sulfate & Ammonium Nitrate',
     usage: '150kg/ha Potassium Sulfate, 100kg/ha Ammonium Nitrate',
-    tips: 'High potassium is crucial for tuber development. Apply in bands near the seed pieces at planting.'
+    tips: 'High potassium is crucial for tuber development. Apply in bands near the seed pieces at planting.',
+    naturalAlternatives: 'Wood ash can provide potassium. Green manure crops like alfalfa grown before planting can enrich the soil.'
   },
   'Carrot': {
     name: 'Low-Nitrogen NPK (5-15-15)',
     usage: '70kg/ha',
-    tips: 'Avoid high nitrogen fertilizers which can cause hairy, forked roots. Focus on Phosphorus and Potassium for root growth.'
+    tips: 'Avoid high nitrogen fertilizers which can cause hairy, forked roots. Focus on Phosphorus and Potassium for root growth.',
+    naturalAlternatives: 'Bone meal for phosphorus and compost for overall health. Companion planting with rosemary can deter the carrot rust fly.'
   },
   'Lettuce': {
     name: 'Balanced NPK (10-10-10)',
     usage: '50kg/ha',
-    tips: 'Lettuce has a shallow root system, so frequent, light applications are better than one heavy dose.'
+    tips: 'Lettuce has a shallow root system, so frequent, light applications are better than one heavy dose.',
+    naturalAlternatives: 'Liquid seaweed fertilizer is excellent. A diluted solution of soap and water can manage aphids.'
   },
   'Corn': {
     name: 'High-Nitrogen Starter & Urea',
     usage: '150kg/ha Urea',
-    tips: 'Corn is a heavy nitrogen feeder. Apply a starter fertilizer at planting and side-dress with Urea when plants are knee-high.'
+    tips: 'Corn is a heavy nitrogen feeder. Apply a starter fertilizer at planting and side-dress with Urea when plants are knee-high.',
+    naturalAlternatives: 'Planting legumes like beans alongside corn (as in "Three Sisters" farming) naturally fixes nitrogen in the soil.'
   },
   'Rice': {
     name: 'Ammonium Sulfate & Muriate of Potash',
     usage: '100kg/ha Ammonium Sulfate, 50kg/ha Muriate of Potash',
-    tips: 'Incorporate potash before flooding. Apply ammonium sulfate in splits for efficient uptake in flooded conditions.'
+    tips: 'Incorporate potash before flooding. Apply ammonium sulfate in splits for efficient uptake in flooded conditions.',
+    naturalAlternatives: 'Azolla, a floating fern, is a fantastic bio-fertilizer for rice paddies, fixing nitrogen from the atmosphere.'
   },
   'Cabbage': {
     name: 'Boron & NPK 12-12-12',
     usage: '80kg/ha NPK, 1kg/ha Boron',
-    tips: 'Boron is essential for head formation and to prevent hollow stems. Ensure even watering.'
+    tips: 'Boron is essential for head formation and to prevent hollow stems. Ensure even watering.',
+    naturalAlternatives: 'Use compost rich in organic matter. A simple garlic spray can help deter common pests like cabbage worms.'
   }
 };
 
