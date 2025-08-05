@@ -1,6 +1,7 @@
 
 "use client"
 
+import * as React from 'react';
 import type { FC } from 'react';
 import type { Crop } from '@/lib/data';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
