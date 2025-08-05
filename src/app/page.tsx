@@ -1,3 +1,4 @@
+
 "use client"
 
 import * as React from "react"
@@ -12,8 +13,8 @@ import { useToast } from "@/hooks/use-toast"
 import type { Crop, Fertilizer } from "@/lib/data"
 import { getSuggestedCrops, getFertilizerForCrop, SOIL_TYPES, SEASONS } from "@/lib/data"
 import type { WeatherData } from "@/lib/weather"
-import { fetchWeatherData } from "@/lib/weather"
-import { Leaf, MapPin, Search, Bot } from "lucide-react"
+import { fetchWeatherData, fetchWeatherDataByCoords } from "@/lib/weather"
+import { Leaf, MapPin, Search, Bot, LocateFixed } from "lucide-react"
 import CropSuggestions from "@/components/agromate/CropSuggestions"
 import FertilizerInfo from "@/components/agromate/FertilizerInfo"
 import WeatherDisplay from "@/components/agromate/WeatherDisplay"
@@ -31,6 +32,8 @@ export default function AgroMatePage() {
 
   const [isCropsLoading, setIsCropsLoading] = useState(false)
   const [isWeatherLoading, setIsWeatherLoading] = useState(false)
+  const [isDetectingLocation, setIsDetectingLocation] = useState(false);
+
 
   const { toast } = useToast()
 
@@ -77,6 +80,48 @@ export default function AgroMatePage() {
       setIsWeatherLoading(false)
     }
   }
+
+  const handleDetectLocation = () => {
+    if (!navigator.geolocation) {
+      toast({
+        variant: "destructive",
+        title: "Geolocation Not Supported",
+        description: "Your browser does not support geolocation.",
+      });
+      return;
+    }
+
+    setIsDetectingLocation(true);
+    setIsWeatherLoading(true);
+    navigator.geolocation.getCurrentPosition(
+      async (position) => {
+        try {
+          const { latitude, longitude } = position.coords;
+          const data = await fetchWeatherDataByCoords(latitude, longitude);
+          setWeatherData(data);
+          setLocation(data.location);
+        } catch (error) {
+          toast({
+            variant: "destructive",
+            title: "Error",
+            description: "Could not fetch weather data for your location.",
+          });
+        } finally {
+          setIsDetectingLocation(false);
+          setIsWeatherLoading(false);
+        }
+      },
+      () => {
+        toast({
+          variant: "destructive",
+          title: "Location Access Denied",
+          description: "Please allow location access to use this feature.",
+        });
+        setIsDetectingLocation(false);
+        setIsWeatherLoading(false);
+      }
+    );
+  };
 
   const handleSelectCrop = (crop: Crop) => {
     setSelectedCrop(crop)
@@ -160,10 +205,15 @@ export default function AgroMatePage() {
                     onChange={(e) => setLocation(e.target.value)}
                   />
                 </div>
-                <Button onClick={handleGetWeather} className="w-full" variant="outline" disabled={isWeatherLoading}>
-                  <Search className="mr-2 h-4 w-4" />
-                  Get Weather
-                </Button>
+                <div className="flex gap-2">
+                   <Button onClick={handleGetWeather} className="flex-1" variant="outline" disabled={isWeatherLoading}>
+                     <Search className="mr-2 h-4 w-4" />
+                     Get Weather
+                   </Button>
+                   <Button onClick={handleDetectLocation} size="icon" variant="outline" disabled={isDetectingLocation || isWeatherLoading} aria-label="Detect Location">
+                      <LocateFixed className="h-4 w-4" />
+                   </Button>
+                </div>
               </CardContent>
             </Card>
           </div>
