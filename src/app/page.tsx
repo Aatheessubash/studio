@@ -14,11 +14,12 @@ import type { Crop, Fertilizer } from "@/lib/data"
 import { getSuggestedCrops, getFertilizerForCrop, SOIL_TYPES, SEASONS } from "@/lib/data"
 import type { WeatherData } from "@/lib/weather"
 import { fetchWeatherData, fetchWeatherDataByCoords } from "@/lib/weather"
-import { Leaf, MapPin, Search, Bot, LocateFixed } from "lucide-react"
+import { Leaf, MapPin, Search, Bot, LocateFixed, Download } from "lucide-react"
 import CropSuggestions from "@/components/agromate/CropSuggestions"
 import FertilizerInfo from "@/components/agromate/FertilizerInfo"
 import WeatherDisplay from "@/components/agromate/WeatherDisplay"
 import { Skeleton } from "@/components/ui/skeleton"
+import DownloadReport from "@/components/agromate/DownloadReport"
 
 export default function AgroMatePage() {
   const [soilType, setSoilType] = useState<string>("")
@@ -132,12 +133,19 @@ export default function AgroMatePage() {
   return (
     <div className="flex flex-col min-h-dvh bg-secondary/50 dark:bg-black">
       <header className="bg-background dark:bg-card shadow-sm">
-        <div className="container mx-auto flex items-center gap-4 px-4 py-3 sm:px-6">
-          <Bot className="h-8 w-8 text-primary" />
-          <div>
-            <h1 className="text-2xl font-bold tracking-tight text-foreground">AgroMate</h1>
-            <p className="text-sm text-muted-foreground">Your Smart Farming Assistant</p>
-          </div>
+        <div className="container mx-auto flex items-center justify-between px-4 py-3 sm:px-6">
+            <div className="flex items-center gap-4">
+              <Bot className="h-8 w-8 text-primary" />
+              <div>
+                <h1 className="text-2xl font-bold tracking-tight text-foreground">AgroMate</h1>
+                <p className="text-sm text-muted-foreground">Your Smart Farming Assistant</p>
+              </div>
+            </div>
+            <DownloadReport
+                selectedCrop={selectedCrop}
+                fertilizerInfo={fertilizerInfo}
+                weatherData={weatherData}
+            />
         </div>
       </header>
 
