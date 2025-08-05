@@ -1,7 +1,7 @@
 import type { LucideIcon } from "lucide-react";
 import { Wheat, Carrot, Sprout, Apple, Leaf, Sun, Snowflake, CloudRain } from "lucide-react";
 
-export const SOIL_TYPES = ['Sandy', 'Clay', 'Loamy', 'Silty', 'Peaty', 'Chalky'];
+export const SOIL_TYPES = ['Sandy', 'Clay', 'Loamy', 'Silty', 'Peaty', 'Chalky', 'Alluvial', 'Black', 'Red', 'Laterite'];
 export const SEASONS = ['Summer', 'Monsoon', 'Winter', 'Autumn', 'Spring'];
 
 export interface Crop {
@@ -21,7 +21,7 @@ export interface Crop {
 export const CROPS: Crop[] = [
   {
     name: 'Wheat',
-    soil: ['Loamy', 'Clay'],
+    soil: ['Loamy', 'Clay', 'Alluvial'],
     season: ['Winter', 'Spring'],
     icon: Wheat,
     description: 'A staple cereal grain grown worldwide.',
@@ -34,7 +34,7 @@ export const CROPS: Crop[] = [
   },
   {
     name: 'Tomato',
-    soil: ['Sandy', 'Loamy'],
+    soil: ['Sandy', 'Loamy', 'Red'],
     season: ['Summer', 'Autumn'],
     icon: Apple,
     description: 'A popular fruit, botanically a berry, used in many cuisines.',
@@ -47,7 +47,7 @@ export const CROPS: Crop[] = [
   },
   {
     name: 'Potato',
-    soil: ['Sandy', 'Silty', 'Peaty'],
+    soil: ['Sandy', 'Silty', 'Peaty', 'Loamy'],
     season: ['Spring', 'Summer'],
     icon: Sprout,
     description: 'A starchy tuber, one of the world\'s main food crops.',
@@ -73,7 +73,7 @@ export const CROPS: Crop[] = [
   },
   {
     name: 'Lettuce',
-    soil: ['Silty', 'Loamy'],
+    soil: ['Silty', 'Loamy', 'Alluvial'],
     season: ['Spring', 'Autumn'],
     icon: Leaf,
     description: 'A leaf vegetable, often used in salads and sandwiches.',
@@ -86,7 +86,7 @@ export const CROPS: Crop[] = [
   },
   {
     name: 'Corn',
-    soil: ['Loamy', 'Silty'],
+    soil: ['Loamy', 'Silty', 'Alluvial', 'Red'],
     season: ['Summer'],
     icon: Sun,
     description: 'A tall annual cereal grass that yields large grains, or kernels, set in rows on a cob.',
@@ -99,7 +99,7 @@ export const CROPS: Crop[] = [
   },
   {
     name: 'Rice',
-    soil: ['Clay', 'Silty'],
+    soil: ['Clay', 'Silty', 'Alluvial', 'Black'],
     season: ['Monsoon'],
     icon: CloudRain,
     description: 'The seed of the grass species Oryza sativa (Asian rice) or less commonly Oryza glaberrima (African rice).',
