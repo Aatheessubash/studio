@@ -111,7 +111,7 @@
       "name": "Onion",
       "soil": ["Sandy", "Loamy", "Alluvial"],
       "season": ["Winter", "Spring"],
-      "icon": "OnionIcon",
+      "icon": "Sprout",
       "description": "A versatile vegetable, cultivated for its bulb.",
       "calendar": {
         "sow": "October - November",
@@ -124,7 +124,7 @@
       "name": "Garlic",
       "soil": ["Loamy", "Silty", "Sandy"],
       "season": ["Autumn", "Winter"],
-      "icon": "GarlicIcon",
+      "icon": "Leaf",
       "description": "A species in the onion genus, Allium, known for its pungent flavor.",
       "calendar": {
         "sow": "September - November",
@@ -176,7 +176,7 @@
       "name": "Soybean",
       "soil": ["Loamy", "Clay", "Black"],
       "season": ["Monsoon"],
-      "icon": "SoybeanIcon",
+      "icon": "Sprout",
       "description": "A species of legume native to East Asia, widely grown for its edible bean.",
       "calendar": {
         "sow": "June - July",
@@ -280,7 +280,7 @@
       "name": "Watermelon",
       "soil": ["Sandy", "Loamy"],
       "season": ["Summer"],
-      "icon": "DropletsIcon",
+      "icon": "Droplets",
       "description": "A large fruit of a plant of the gourd family, with smooth green skin, red pulp, and watery juice.",
       "calendar": {
         "sow": "February - March",
