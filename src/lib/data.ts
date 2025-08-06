@@ -118,7 +118,7 @@ export interface Fertilizer {
 export const SOIL_TYPES: string[] = data.SOIL_TYPES;
 export const SEASONS: string[] = data.SEASONS;
 
-const CROPS_DATA: Crop[] = data.CROPS.map((crop) => ({
+const CROPS_DATA: Crop[] = (data.CROPS as any[]).map((crop) => ({
     ...crop,
     icon: icons[crop.icon] || Leaf, // Fallback to Leaf icon
 }));
