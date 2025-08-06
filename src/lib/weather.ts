@@ -1,90 +1,83 @@
 
+export interface ForecastItem {
+  day: string;
+  condition: 'Sunny' | 'Cloudy' | 'Rainy' | 'Partly Cloudy' | 'Stormy';
+  temp: number;
+}
+
 export interface WeatherData {
   location: string;
   temperature: number;
   humidity: number;
-  condition: 'Sunny' | 'Cloudy' | 'Rainy' | 'Partly Cloudy' | 'Stormy';
-  forecast: {
-    day: string;
-    temp: number;
-    condition: 'Sunny' | 'Cloudy' | 'Rainy' | 'Partly Cloudy' | 'Stormy';
-  }[];
+  condition: ForecastItem['condition'];
+  forecast: ForecastItem[];
 }
 
-const conditions: WeatherData['condition'][] = ['Sunny', 'Cloudy', 'Rainy', 'Partly Cloudy', 'Stormy'];
+const API_KEY = "a5bf6c5488d299dd15e60fc52509d006";
+const API_BASE_URL = "https://api.openweathermap.org/data/2.5/forecast";
 
-// A simple hashing function to get a somewhat consistent random number for a given string
-const simpleHash = (str: string): number => {
-  let hash = 0;
-  for (let i = 0; i < str.length; i++) {
-    const char = str.charCodeAt(i);
-    hash = (hash << 5) - hash + char;
-    hash |= 0; // Convert to 32bit integer
-  }
-  return Math.abs(hash);
-};
 
-const generateWeatherData = (location: string): WeatherData => {
-    const hash = simpleHash(location.toLowerCase());
+async function processWeatherData(data: any): Promise<WeatherData | null> {
+    if (!data || !data.list || data.list.length === 0) {
+        return null;
+    }
+    const current = data.list[0];
+    const location = `${data.city.name}, ${data.city.country}`;
 
-    const today = new Date();
-    const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+    const getCondition = (main: string): WeatherData['condition'] => {
+      switch (main) {
+        case 'Clear': return 'Sunny';
+        case 'Clouds': return 'Cloudy';
+        case 'Rain': return 'Rainy';
+        case 'Thunderstorm': return 'Stormy';
+        case 'Drizzle': return 'Partly Cloudy';
+        default: return 'Cloudy';
+      }
+    };
+
+    const dailyForecastMap = new Map<string, ForecastItem>();
+    for (const item of data.list) {
+      const date = new Date(item.dt * 1000).toLocaleDateString('en-US', { weekday: 'short' });
+      if (!dailyForecastMap.has(date)) {
+        dailyForecastMap.set(date, {
+          day: date,
+          condition: getCondition(item.weather[0].main),
+          temp: Math.round(item.main.temp),
+        });
+      }
+      if (dailyForecastMap.size >= 3) break;
+    }
 
     return {
-      location: location.charAt(0).toUpperCase() + location.slice(1),
-      temperature: (hash % 25) + 15, // Temp between 15°C and 40°C
-      humidity: (hash % 50) + 40, // Humidity between 40% and 90%
-      condition: conditions[hash % conditions.length],
-      forecast: [
-        {
-          day: 'Tomorrow',
-          temp: ((hash * 2) % 25) + 14,
-          condition: conditions[(hash * 2) % conditions.length],
-        },
-        {
-          day: days[(today.getDay() + 2) % 7],
-          temp: ((hash * 3) % 25) + 16,
-          condition: conditions[(hash * 3) % conditions.length],
-        },
-        {
-          day: days[(today.getDay() + 3) % 7],
-          temp: ((hash * 4) % 25) + 15,
-          condition: conditions[(hash * 4) % conditions.length],
-        },
-      ],
+      location,
+      temperature: Math.round(current.main.temp),
+      humidity: current.main.humidity,
+      condition: getCondition(current.weather[0].main),
+      forecast: Array.from(dailyForecastMap.values()),
     };
 }
 
 
-export const fetchWeatherData = (location: string): Promise<WeatherData> => {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      const data = generateWeatherData(location);
-      resolve(data);
-    }, 1200); // Simulate network delay
-  });
-};
-
-
-// This is a mock function. In a real app, you'd use a reverse geocoding API.
-const getCityFromCoords = async (lat: number, lon: number): Promise<string> => {
-    // For this mock, we'll just create a name from coords.
-    return new Promise(resolve => {
-        setTimeout(() => {
-            resolve(`Coords ${lat.toFixed(2)}, ${lon.toFixed(2)}`)
-        }, 300);
-    });
+export async function fetchWeatherData(city: string): Promise<WeatherData | null> {
+  try {
+    const res = await fetch(`${API_BASE_URL}?q=${city}&units=metric&appid=${API_KEY}`);
+    if (!res.ok) throw new Error('Failed to fetch weather');
+    const data = await res.json();
+    return processWeatherData(data);
+  } catch (error) {
+    console.error("Error fetching weather data by city:", error);
+    return null;
+  }
 }
 
-
-export const fetchWeatherDataByCoords = async (lat: number, lon: number): Promise<WeatherData> => {
-    // In a real app, you would make an API call to OpenWeatherMap or similar with lat/lon.
-    // For this mock, we'll use our mock reverse geocoder and then generate weather data.
-    const locationName = await getCityFromCoords(lat, lon);
-    return new Promise((resolve) => {
-        setTimeout(() => {
-            const data = generateWeatherData(locationName);
-            resolve(data);
-        }, 900); // Simulate network delay
-    });
+export async function fetchWeatherDataByCoords(lat: number, lon: number): Promise<WeatherData | null> {
+    try {
+        const res = await fetch(`${API_BASE_URL}?lat=${lat}&lon=${lon}&units=metric&appid=${API_KEY}`);
+        if (!res.ok) throw new Error('Failed to fetch weather');
+        const data = await res.json();
+        return processWeatherData(data);
+    } catch (error) {
+        console.error("Error fetching weather data by coords:", error);
+        return null;
+    }
 }

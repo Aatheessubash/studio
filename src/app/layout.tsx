@@ -3,7 +3,7 @@ import './globals.css';
 import { Toaster } from "@/components/ui/toaster"
 
 export const metadata: Metadata = {
-  title: 'AgroMate – Smart Farming Assistant',
+  title: 'Agro Smart Farming Assistant',
   description: 'Your smart assistant for crop suggestions, weather forecasts, and fertilizer recommendations.',
 };
 

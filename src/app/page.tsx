@@ -101,7 +101,9 @@ export default function AgroMatePage() {
           const { latitude, longitude } = position.coords;
           const data = await fetchWeatherDataByCoords(latitude, longitude);
           setWeatherData(data);
-          setLocation(data.location);
+          if (data) {
+            setLocation(data.location);
+          }
         } catch (error) {
           toast({
             variant: "destructive",
@@ -138,7 +140,7 @@ export default function AgroMatePage() {
             <div className="flex items-center gap-4">
               <Bot className="h-8 w-8 text-primary" />
               <div>
-                <h1 className="text-2xl font-bold tracking-tight text-foreground">AgroMate</h1>
+                <h1 className="text-2xl font-bold tracking-tight text-foreground">AgriSmart</h1>
                 <p className="text-sm text-muted-foreground">Your Smart Farming Assistant</p>
               </div>
             </div>
