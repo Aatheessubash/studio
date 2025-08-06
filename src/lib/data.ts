@@ -1,5 +1,38 @@
+
 import type { LucideIcon } from "lucide-react";
-import { Wheat, Carrot, Sprout, Apple, Leaf, Sun, Snowflake, CloudRain } from "lucide-react";
+import { Wheat, Carrot, Sprout, Apple, Leaf, Sun, Snowflake, CloudRain, Flower, Wind, Droplets } from "lucide-react";
+
+// Custom icons for crops that don't have a direct match in lucide-react
+const OnionIcon: LucideIcon = (props) => (
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}>
+        <path d="M12 2C8.69 2 6 4.69 6 8c0 3.31 2.69 6 6 6s6-2.69 6-6c0-3.31-2.69-6-6-6z" />
+        <path d="M11 14v5a1 1 0 001 1h0a1 1 0 001-1v-5" />
+        <path d="M8.5 8.5c-1 2.5-1.5 5.5.5 7.5" />
+        <path d="M15.5 8.5c1 2.5 1.5 5.5-.5 7.5" />
+    </svg>
+);
+
+const GarlicIcon: LucideIcon = (props) => (
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}>
+        <path d="M12 2C9 2 6 5 6 9c0 3.31 2.69 6 6 6s6-2.69 6-6c0-4-3-7-6-7z" />
+        <path d="M12 15c-3 0-6 2-6 4v1h12v-1c0-2-3-4-6-4z" />
+        <path d="M10 10c.2-.5.5-1 .9-1.5" />
+        <path d="M14 10c-.2-.5-.5-1-.9-1.5" />
+    </svg>
+);
+
+const SoybeanIcon: LucideIcon = (props) => (
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}>
+        <path d="M18.88 12.33C17.7 13.51 16 14 14 14s-3.7-.49-4.88-1.67" />
+        <path d="M13 18.33C12.82 17.5 12.42 16.76 12 16c-.42.76-.82 1.5-1 2.33" />
+        <path d="M12 22c5.52 0 10-4.48 10-10S17.52 2 12 2 2 6.48 2 12s4.48 10 10 10z" />
+        <path d="M17 9c-.28-.4-.56-.8-.84-1.2" />
+        <path d="M17.84 6.2c-1-1.05-2-1.2-3.84-1.2s-2.84.15-3.84 1.2" />
+        <path d="M7 9c.28-.4.56-.8.84-1.2" />
+        <path d="M5.12 12.33C6.3 13.51 8 14 10 14s3.7-.49 4.88-1.67" />
+    </svg>
+);
+
 
 export const SOIL_TYPES = ['Sandy', 'Clay', 'Loamy', 'Silty', 'Peaty', 'Chalky', 'Alluvial', 'Black', 'Red', 'Laterite'];
 export const SEASONS = ['Summer', 'Monsoon', 'Winter', 'Autumn', 'Spring'];
@@ -122,6 +155,188 @@ export const CROPS: Crop[] = [
         irrigate: 'Consistently to prevent head splitting',
         harvest: 'June - July (spring) or October - November (autumn)',
     }
+  },
+  {
+    name: 'Onion',
+    soil: ['Sandy', 'Loamy', 'Alluvial'],
+    season: ['Winter', 'Spring'],
+    icon: OnionIcon,
+    description: 'A versatile vegetable, cultivated for its bulb.',
+    calendar: {
+      sow: 'October - November',
+      fertilize: 'At planting & 1 month after',
+      irrigate: 'Moderate; reduce before harvest',
+      harvest: 'March - April',
+    },
+  },
+  {
+    name: 'Garlic',
+    soil: ['Loamy', 'Silty', 'Sandy'],
+    season: ['Autumn', 'Winter'],
+    icon: GarlicIcon,
+    description: 'A species in the onion genus, Allium, known for its pungent flavor.',
+    calendar: {
+      sow: 'September - November',
+      fertilize: 'In spring when shoots appear',
+      irrigate: 'When top 2 inches of soil are dry',
+      harvest: 'June - July',
+    },
+  },
+  {
+    name: 'Spinach',
+    soil: ['Loamy', 'Sandy', 'Alluvial'],
+    season: ['Autumn', 'Winter', 'Spring'],
+    icon: Leaf,
+    description: 'A leafy green flowering plant native to central and western Asia.',
+    calendar: {
+      sow: 'February - April & August - October',
+      fertilize: 'High nitrogen feed after first cutting',
+      irrigate: 'Regularly to keep soil moist',
+      harvest: 'April - June & September - November',
+    },
+  },
+  {
+    name: 'Cauliflower',
+    soil: ['Loamy', 'Clay'],
+    season: ['Winter', 'Autumn'],
+    icon: Sprout,
+    description: 'One of several vegetables in the species Brassica oleracea.',
+    calendar: {
+      sow: 'August - September',
+      fertilize: 'Side-dress with nitrogen 3-4 weeks after transplanting',
+      irrigate: 'Consistent moisture is key',
+      harvest: 'December - February',
+    },
+  },
+  {
+    name: 'Bell Pepper',
+    soil: ['Loamy', 'Sandy', 'Red'],
+    season: ['Summer', 'Monsoon'],
+    icon: Apple,
+    description: 'A cultivar group of the species Capsicum annuum.',
+    calendar: {
+      sow: 'February - March (nursery)',
+      fertilize: 'After first fruit set',
+      irrigate: 'Deep watering, 1-2 times a week',
+      harvest: 'June - September',
+    },
+  },
+  {
+    name: 'Soybean',
+    soil: ['Loamy', 'Clay', 'Black'],
+    season: ['Monsoon'],
+    icon: SoybeanIcon,
+    description: 'A species of legume native to East Asia, widely grown for its edible bean.',
+    calendar: {
+      sow: 'June - July',
+      fertilize: 'Inoculate with Rhizobium bacteria',
+      irrigate: 'Critical during flowering and pod-filling',
+      harvest: 'October - November',
+    },
+  },
+  {
+    name: 'Sugarcane',
+    soil: ['Loamy', 'Clay', 'Black', 'Laterite'],
+    season: ['Summer', 'Monsoon'],
+    icon: Sun,
+    description: 'A tall perennial grass species used for sugar production.',
+    calendar: {
+      sow: 'February - March',
+      fertilize: 'Multiple nitrogen applications',
+      irrigate: 'High water requirement, frequent irrigation',
+      harvest: 'December - March (after 10-12 months)',
+    },
+  },
+  {
+    name: 'Cotton',
+    soil: ['Black', 'Alluvial', 'Red'],
+    season: ['Summer', 'Monsoon'],
+    icon: Flower,
+    description: 'A soft, fluffy staple fiber that grows in a boll, or protective case.',
+    calendar: {
+      sow: 'April - May',
+      fertilize: 'At flowering and boll development stages',
+      irrigate: 'Sensitive to both over and under watering',
+      harvest: 'October - December',
+    },
+  },
+  {
+    name: 'Groundnut',
+    soil: ['Sandy', 'Loamy', 'Red'],
+    season: ['Monsoon', 'Summer'],
+    icon: Sprout,
+    description: 'Also known as the peanut, a legume crop grown mainly for its edible seeds.',
+    calendar: {
+      sow: 'June - July',
+      fertilize: 'Apply gypsum at flowering stage for pod development',
+      irrigate: 'Critical during pegging and pod formation',
+      harvest: 'October - November',
+    },
+  },
+  {
+    name: 'Mustard',
+    soil: ['Loamy', 'Sandy'],
+    season: ['Winter'],
+    icon: Flower,
+    description: 'A plant species in the genera Brassica and Sinapis in the family Brassicaceae.',
+    calendar: {
+      sow: 'October - November',
+      fertilize: 'Low nitrogen requirement',
+      irrigate: 'One irrigation at flowering stage is usually sufficient',
+      harvest: 'February - March',
+    },
+  },
+  {
+    name: 'Sunflower',
+    soil: ['Sandy', 'Loamy', 'Black'],
+    season: ['Spring', 'Summer'],
+    icon: Sun,
+    description: 'A large annual forb of the genus Helianthus grown as a crop for its edible oil and seeds.',
+    calendar: {
+      sow: 'January - February & June - July',
+      fertilize: 'At planting and 30-45 days after',
+      irrigate: 'Critical during flowering stage',
+      harvest: '90-100 days after sowing',
+    },
+  },
+  {
+    name: 'Mango',
+    soil: ['Alluvial', 'Red', 'Laterite'],
+    season: ['Summer'],
+    icon: Apple,
+    description: 'A juicy stone fruit produced from numerous species of tropical trees.',
+    calendar: {
+      sow: 'June - July (planting saplings)',
+      fertilize: 'Twice a year, before and after monsoon',
+      irrigate: 'Regularly for young plants, reduce for mature trees',
+      harvest: 'May - July',
+    },
+  },
+  {
+    name: 'Banana',
+    soil: ['Loamy', 'Alluvial', 'Volcanic'],
+    season: ['Summer', 'Monsoon', 'Winter'],
+    icon: Leaf,
+    description: 'An elongated, edible fruit – botanically a berry – produced by several kinds of large herbaceous flowering plants.',
+    calendar: {
+      sow: 'Throughout the year in tropical climates',
+      fertilize: 'Monthly application of balanced fertilizer',
+      irrigate: 'High water requirement, keep soil consistently moist',
+      harvest: '9-12 months after planting',
+    },
+  },
+  {
+    name: 'Watermelon',
+    soil: ['Sandy', 'Loamy'],
+    season: ['Summer'],
+    icon: Droplets,
+    description: 'A large fruit of a plant of the gourd family, with smooth green skin, red pulp, and watery juice.',
+    calendar: {
+      sow: 'February - March',
+      fertilize: 'High phosphorus and potassium when vines start to run',
+      irrigate: 'Consistent watering, reduce as fruit ripens',
+      harvest: 'May - June',
+    },
   }
 ];
 
@@ -180,6 +395,90 @@ export const FERTILIZER_DATA: Record<string, Fertilizer> = {
     usage: '80kg/ha NPK, 1kg/ha Boron',
     tips: 'Boron is essential for head formation and to prevent hollow stems. Ensure even watering.',
     naturalAlternatives: 'Use compost rich in organic matter. A simple garlic spray can help deter common pests like cabbage worms.'
+  },
+  'Onion': {
+    name: 'NPK 10-26-26 & Sulphur',
+    usage: '100kg/ha NPK, 20kg/ha Sulphur',
+    tips: 'Sulphur is crucial for onion pungency and bulb development. Apply NPK as a basal dose.',
+    naturalAlternatives: 'Compost and poultry manure are excellent sources of nutrients. Avoid fresh manure.'
+  },
+  'Garlic': {
+    name: 'NPK 15-15-15 & Gypsum',
+    usage: '90kg/ha NPK, 50kg/ha Gypsum',
+    tips: 'Apply a balanced fertilizer in spring. Gypsum provides calcium and sulfur without affecting soil pH.',
+    naturalAlternatives: 'Fish emulsion is a great liquid feed. Bone meal at planting helps with root development.'
+  },
+  'Spinach': {
+    name: 'Urea / Ammonium Nitrate',
+    usage: '75kg/ha Nitrogen',
+    tips: 'Spinach loves nitrogen for leafy growth. Apply in splits after each cutting for continuous harvest.',
+    naturalAlternatives: 'Well-rotted chicken manure or blood meal are high in nitrogen. Compost tea works well too.'
+  },
+  'Cauliflower': {
+    name: 'NPK 12-32-16 & Borax',
+    usage: '120kg/ha NPK, 10kg/ha Borax',
+    tips: 'Cauliflower is a heavy feeder. Boron is essential to prevent browning of the curd.',
+    naturalAlternatives: 'A thick layer of compost at planting. Seaweed extract can provide trace minerals like boron.'
+  },
+  'Bell Pepper': {
+    name: 'NPK 10-10-10 & Magnesium Sulfate',
+    usage: '60kg/ha NPK, 10kg/ha MgSO4',
+    tips: 'Avoid high nitrogen, which promotes leaves over fruit. A dose of Epsom salt (Magnesium Sulfate) can boost fruit production.',
+    naturalAlternatives: 'Crushed eggshells for calcium, and compost for overall health. Companion plant with basil.'
+  },
+  'Soybean': {
+    name: 'DAP & Potash',
+    usage: '50kg/ha DAP, 40kg/ha Potash',
+    tips: 'As a legume, it fixes its own nitrogen. Focus on phosphorus and potassium. Inoculate seeds with Bradyrhizobium japonicum.',
+    naturalAlternatives: 'Crop rotation with cereals like corn or wheat enriches the soil. No nitrogen fertilizer is typically needed.'
+  },
+  'Sugarcane': {
+    name: 'Urea, SSP & MOP',
+    usage: '250kg/ha N, 80kg/ha P, 60kg/ha K',
+    tips: 'Very heavy feeder, especially nitrogen. Apply in multiple splits. Use trash mulching to conserve moisture and add organic matter.',
+    naturalAlternatives: 'Filter press mud from sugar factories is an excellent organic manure. Green manuring with sunn hemp.'
+  },
+  'Cotton': {
+    name: 'Urea & DAP',
+    usage: '150kg/ha N, 60kg/ha P',
+    tips: 'Nitrogen application should be carefully managed to avoid excessive vegetative growth at the expense of boll formation.',
+    naturalAlternatives: 'Farmyard manure and crop rotation. Intercropping with legumes can help manage pests and improve soil.'
+  },
+  'Groundnut': {
+    name: 'SSP & Gypsum',
+    usage: '60kg/ha SSP, 250kg/ha Gypsum',
+    tips: 'Phosphorus is key for root development. Gypsum is critical for pod filling and should be applied at the base of the plant during flowering.',
+    naturalAlternatives: 'Crop rotation. As a legume, it fixes nitrogen. Use well-decomposed manure.'
+  },
+  'Mustard': {
+    name: 'Urea & Sulphur',
+    usage: '80kg/ha N, 40kg/ha Sulphur',
+    tips: 'Sulphur is essential for oil content in mustard seeds. Apply half the nitrogen at sowing and the rest at first irrigation.',
+    naturalAlternatives: 'Mustard cake (the residue after oil extraction) is a great organic fertilizer for subsequent crops.'
+  },
+  'Sunflower': {
+    name: 'NPK 8-30-20 & Boron',
+    usage: '60kg/ha N, 90kg/ha P, 60kg/ha K',
+    tips: 'High phosphorus is important for root growth and seed set. Boron is crucial for head development and to prevent empty seeds.',
+    naturalAlternatives: 'Compost and manure. Avoid planting near potatoes as they are susceptible to the same blight.'
+  },
+  'Mango': {
+    name: 'NPK for young and mature trees',
+    usage: 'Varies with age',
+    tips: 'For mature, fruit-bearing trees, reduce nitrogen and increase phosphorus and potassium to encourage flowering and fruiting.',
+    naturalAlternatives: 'Well-rotted farmyard manure, vermicompost, and bone meal. Mulching with organic matter helps retain moisture.'
+  },
+  'Banana': {
+    name: 'High Potassium fertilizer (e.g., MOP)',
+    usage: '300g K per plant per year, in splits',
+    tips: 'Bananas are very heavy potassium feeders, which is vital for fruit size and quality. Apply fertilizer monthly in a ring around the plant.',
+    naturalAlternatives: 'Wood ash and composted manure are excellent sources of potassium. Mulch heavily with banana leaves.'
+  },
+  'Watermelon': {
+    name: 'NPK 5-10-10',
+    usage: '100 kg/ha',
+    tips: 'Lower nitrogen to avoid excessive vine growth. High potassium for fruit sweetness. Stop fertilizing when fruits are baseball-sized.',
+    naturalAlternatives: 'Compost and seaweed extract. Planting nasturtiums nearby can deter some pests.'
   }
 };
 
