@@ -1,3 +1,4 @@
+
 "use client"
 
 import type { FC } from 'react';
@@ -56,13 +57,13 @@ const CropSuggestions: FC<CropSuggestionsProps> = ({ crops, isLoading, onSelectC
                 )}
                 onClick={() => onSelectCrop(crop)}
               >
-                <div className="flex items-start gap-4">
+                <div className="flex items-start gap-4 w-full">
                   <div className={cn("p-2 rounded-full bg-secondary", selectedCrop?.name === crop.name && "bg-primary/10")}>
                     <crop.icon className={cn("h-6 w-6 text-secondary-foreground", selectedCrop?.name === crop.name && "text-primary")} />
                   </div>
-                  <div>
+                  <div className="flex-1">
                     <p className="font-semibold text-card-foreground">{crop.name}</p>
-                    <p className="text-xs text-muted-foreground">{crop.description}</p>
+                    <p className="text-xs text-muted-foreground whitespace-normal">{crop.description}</p>
                   </div>
                 </div>
               </Button>
