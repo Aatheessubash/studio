@@ -6,7 +6,7 @@ import { useRef, useState } from 'react';
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
 import { Button } from '@/components/ui/button';
-import { Download, Loader2 } from 'lucide-react';
+import { Download, Loader2, CalendarDays, Recycle, Leaf } from 'lucide-react';
 import type { Crop, Fertilizer } from '@/lib/data';
 import type { WeatherData } from '@/lib/weather';
 import {
@@ -33,22 +33,52 @@ const ReportSummary: FC<DownloadReportProps> = ({ selectedCrop, fertilizerInfo, 
         <CardContent className="space-y-4">
             {selectedCrop && (
                 <section>
-                    <h3 className="font-semibold text-lg mb-2 text-primary">Crop Recommendation</h3>
+                    <h3 className="flex items-center gap-2 font-semibold text-lg mb-2 text-primary">
+                        <Leaf className="h-5 w-5" />
+                        <span>Crop Recommendation</span>
+                    </h3>
                     <p><strong>Crop:</strong> {selectedCrop.name}</p>
                     <p><strong>Description:</strong> {selectedCrop.description}</p>
                 </section>
             )}
-            <Separator />
-            {fertilizerInfo && (
-                <section>
-                    <h3 className="font-semibold text-lg mb-2 text-primary">Fertilizer Details</h3>
-                    <p><strong>Name:</strong> {fertilizerInfo.name}</p>
-                    <p><strong>Usage:</strong> {fertilizerInfo.usage}</p>
-                    <p><strong>Tips:</strong> {fertilizerInfo.tips}</p>
-                </section>
+            {selectedCrop?.calendar && (
+                <>
+                    <Separator />
+                    <section>
+                        <h3 className="flex items-center gap-2 font-semibold text-lg mb-2 text-primary">
+                            <CalendarDays className="h-5 w-5" />
+                            <span>Farming Calendar</span>
+                        </h3>
+                        <p><strong>Sow / Transplant:</strong> {selectedCrop.calendar.sow}</p>
+                        <p><strong>Fertilize:</strong> {selectedCrop.calendar.fertilize}</p>
+                        <p><strong>Irrigate:</strong> {selectedCrop.calendar.irrigate}</p>
+                        <p><strong>Harvest:</strong> {selectedCrop.calendar.harvest}</p>
+                    </section>
+                </>
             )}
-            <Separator />
+            {fertilizerInfo && (
+                <>
+                    <Separator />
+                    <section>
+                        <h3 className="font-semibold text-lg mb-2 text-primary">Fertilizer Details</h3>
+                        <p><strong>Name:</strong> {fertilizerInfo.name}</p>
+                        <p><strong>Usage:</strong> {fertilizerInfo.usage}</p>
+                        <p><strong>Tips:</strong> {fertilizerInfo.tips}</p>
+                    </section>
+                    <Separator className="my-4"/>
+                    <section>
+                        <h3 className="flex items-center gap-2 font-semibold text-lg mb-2 text-green-600">
+                            <Recycle className="h-5 w-5" />
+                            <span>Organic Alternatives</span>
+                        </h3>
+                        <p>{fertilizerInfo.naturalAlternatives}</p>
+                    </section>
+                </>
+
+            )}
             {weatherData && (
+              <>
+                <Separator />
                 <section>
                     <h3 className="font-semibold text-lg mb-2 text-primary">Weather Forecast</h3>
                     <p><strong>Location:</strong> {weatherData.location}</p>
@@ -56,6 +86,7 @@ const ReportSummary: FC<DownloadReportProps> = ({ selectedCrop, fertilizerInfo, 
                     <p><strong>Humidity:</strong> {weatherData.humidity}%</p>
                     <p><strong>Condition:</strong> {weatherData.condition}</p>
                 </section>
+              </>
             )}
         </CardContent>
     </Card>
