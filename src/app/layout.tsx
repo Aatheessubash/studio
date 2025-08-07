@@ -1,9 +1,10 @@
+
 import type {Metadata} from 'next';
 import './globals.css';
 import { Toaster } from "@/components/ui/toaster"
 
 export const metadata: Metadata = {
-  title: 'Agro Smart Farming Assistant',
+  title: 'SmartAgri',
   description: 'Your smart assistant for crop suggestions, weather forecasts, and fertilizer recommendations.',
 };
 

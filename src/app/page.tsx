@@ -140,7 +140,7 @@ export default function AgroMatePage() {
             <div className="flex items-center gap-4">
               <Bot className="h-8 w-8 text-primary" />
               <div>
-                <h1 className="text-2xl font-bold tracking-tight text-foreground">AgriSmart</h1>
+                <h1 className="text-2xl font-bold tracking-tight text-foreground">SmartAgri</h1>
                 <p className="text-sm text-muted-foreground">Your Smart Farming Assistant</p>
               </div>
             </div>

@@ -27,7 +27,7 @@ interface DownloadReportProps {
 const ReportSummary: FC<DownloadReportProps> = ({ selectedCrop, fertilizerInfo, weatherData }) => (
     <Card className="w-full">
         <CardHeader>
-            <CardTitle>AgroMate Farming Report</CardTitle>
+            <CardTitle>SmartAgri Farming Report</CardTitle>
             <CardDescription>Generated on: {new Date().toLocaleDateString()}</CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
@@ -85,7 +85,7 @@ const DownloadReport: FC<DownloadReportProps> = ({ selectedCrop, fertilizerInfo,
         });
         
         pdf.addImage(imgData, 'PNG', 0, 0, canvas.width, canvas.height);
-        pdf.save(`AgroMate-Report-${new Date().toISOString().split('T')[0]}.pdf`);
+        pdf.save(`SmartAgri-Report-${new Date().toISOString().split('T')[0]}.pdf`);
 
     } catch (error) {
         console.error("Error generating PDF:", error);
