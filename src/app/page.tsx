@@ -3,6 +3,7 @@
 
 import * as React from "react"
 import { useState } from "react"
+import dynamic from 'next/dynamic'
 
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
@@ -14,13 +15,17 @@ import type { Crop, Fertilizer } from "@/lib/data"
 import { getSuggestedCrops, getFertilizerForCrop, SOIL_TYPES, SEASONS } from "@/lib/data"
 import type { WeatherData } from "@/lib/weather"
 import { fetchWeatherData, fetchWeatherDataByCoords } from "@/lib/weather"
-import { Leaf, MapPin, Search, Bot, LocateFixed, Download } from "lucide-react"
+import { Leaf, MapPin, Search, Bot, LocateFixed, Download, Map } from "lucide-react"
 import CropSuggestions from "@/components/agromate/CropSuggestions"
 import FertilizerInfo from "@/components/agromate/FertilizerInfo"
 import WeatherDisplay from "@/components/agromate/WeatherDisplay"
 import { Skeleton } from "@/components/ui/skeleton"
 import DownloadReport from "@/components/agromate/DownloadReport"
 import FarmingCalendar from "@/components/agromate/FarmingCalendar"
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible"
+
+const WeatherMap = dynamic(() => import('@/components/agromate/WeatherMap'), { ssr: false });
+
 
 export default function AgroMatePage() {
   const [soilType, setSoilType] = useState<string>("")
@@ -35,6 +40,7 @@ export default function AgroMatePage() {
   const [isCropsLoading, setIsCropsLoading] = useState(false)
   const [isWeatherLoading, setIsWeatherLoading] = useState(false)
   const [isDetectingLocation, setIsDetectingLocation] = useState(false);
+  const [showMap, setShowMap] = useState(false)
 
 
   const { toast } = useToast()
@@ -69,6 +75,7 @@ export default function AgroMatePage() {
       return
     }
     setIsWeatherLoading(true)
+    setShowMap(false)
     try {
       const data = await fetchWeatherData(location)
       setWeatherData(data)
@@ -95,6 +102,7 @@ export default function AgroMatePage() {
 
     setIsDetectingLocation(true);
     setIsWeatherLoading(true);
+    setShowMap(false);
     navigator.geolocation.getCurrentPosition(
       async (position) => {
         try {
@@ -240,6 +248,21 @@ export default function AgroMatePage() {
             ) : (
               <WeatherDisplay weatherData={weatherData} />
             )}
+             {weatherData && (
+                 <Collapsible open={showMap} onOpenChange={setShowMap}>
+                    <CollapsibleTrigger asChild>
+                        <Button variant="outline" className="w-full">
+                            <Map className="mr-2 h-4 w-4" />
+                            {showMap ? 'Hide Map' : 'Show Map'}
+                        </Button>
+                    </CollapsibleTrigger>
+                    <CollapsibleContent className="mt-4 space-y-4 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0">
+                        {weatherData.lat && weatherData.lon && (
+                            <WeatherMap lat={weatherData.lat} lon={weatherData.lon} />
+                        )}
+                    </CollapsibleContent>
+                 </Collapsible>
+             )}
           </div>
 
           <div className="flex flex-col gap-8 md:col-span-1 xl:col-span-2">

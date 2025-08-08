@@ -11,6 +11,8 @@ export interface WeatherData {
   humidity: number;
   condition: ForecastItem['condition'];
   forecast: ForecastItem[];
+  lat?: number;
+  lon?: number;
 }
 
 const API_KEY = "a5bf6c5488d299dd15e60fc52509d006";
@@ -23,6 +25,7 @@ async function processWeatherData(data: any): Promise<WeatherData | null> {
     }
     const current = data.list[0];
     const location = `${data.city.name}, ${data.city.country}`;
+    const { lat, lon } = data.city.coord;
 
     const getCondition = (main: string): WeatherData['condition'] => {
       switch (main) {
@@ -54,6 +57,8 @@ async function processWeatherData(data: any): Promise<WeatherData | null> {
       humidity: current.main.humidity,
       condition: getCondition(current.weather[0].main),
       forecast: Array.from(dailyForecastMap.values()),
+      lat,
+      lon
     };
 }
 
