@@ -30,14 +30,14 @@ const WeatherMap: FC<WeatherMapProps> = ({ lat, lon }) => {
   }, [])
 
   if (!isClient) {
-    return null;
+    return <div className="h-64 w-full rounded-lg overflow-hidden border bg-muted animate-pulse" />;
   }
 
   const position: LatLngExpression = [lat, lon];
 
   return (
     <div className="h-64 w-full rounded-lg overflow-hidden border">
-        <MapContainer key={`${lat}-${lon}`} center={position} zoom={13} scrollWheelZoom={false} style={{ height: "100%", width: "100%" }}>
+        <MapContainer center={position} zoom={13} scrollWheelZoom={false} style={{ height: "100%", width: "100%" }}>
             <TileLayer
             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"

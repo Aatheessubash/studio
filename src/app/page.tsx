@@ -258,7 +258,7 @@ export default function AgroMatePage() {
                     </CollapsibleTrigger>
                     <CollapsibleContent className="mt-4 space-y-4 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0">
                         {weatherData.lat && weatherData.lon && (
-                            <WeatherMap lat={weatherData.lat} lon={weatherData.lon} />
+                            <WeatherMap key={`${weatherData.lat}-${weatherData.lon}`} lat={weatherData.lat} lon={weatherData.lon} />
                         )}
                     </CollapsibleContent>
                  </Collapsible>
