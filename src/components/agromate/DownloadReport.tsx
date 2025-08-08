@@ -5,8 +5,9 @@ import type { FC } from 'react';
 import { useRef, useState } from 'react';
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
+import dynamic from 'next/dynamic';
 import { Button } from '@/components/ui/button';
-import { Download, Loader2, CalendarDays, Recycle, Leaf } from 'lucide-react';
+import { Download, Loader2, CalendarDays, Recycle, Leaf, Map } from 'lucide-react';
 import type { Crop, Fertilizer } from '@/lib/data';
 import type { WeatherData } from '@/lib/weather';
 import {
@@ -17,6 +18,8 @@ import {
   CardTitle,
 } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
+
+const WeatherMap = dynamic(() => import('@/components/agromate/WeatherMap'), { ssr: false });
 
 interface DownloadReportProps {
   selectedCrop: Crop | null;
@@ -87,6 +90,20 @@ const ReportSummary: FC<DownloadReportProps> = ({ selectedCrop, fertilizerInfo, 
                     <p><strong>Condition:</strong> {weatherData.condition}</p>
                 </section>
               </>
+            )}
+            {weatherData?.lat && weatherData?.lon && (
+                <>
+                    <Separator />
+                    <section>
+                        <h3 className="flex items-center gap-2 font-semibold text-lg mb-2 text-primary">
+                           <Map className="h-5 w-5" />
+                           <span>Location Map</span>
+                        </h3>
+                        <div className="mt-2">
+                           <WeatherMap lat={weatherData.lat} lon={weatherData.lon} />
+                        </div>
+                    </section>
+                </>
             )}
         </CardContent>
     </Card>
