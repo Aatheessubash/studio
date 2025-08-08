@@ -2,10 +2,8 @@
 "use client"
 
 import 'leaflet/dist/leaflet.css';
-import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import type { FC } from 'react';
-import { useEffect, useState } from 'react';
-import type { LatLngExpression } from 'leaflet';
+import { useEffect, useRef } from 'react';
 import L from 'leaflet';
 
 // Fix for default icon issue with webpack
@@ -23,32 +21,44 @@ interface WeatherMapProps {
 }
 
 const WeatherMap: FC<WeatherMapProps> = ({ lat, lon }) => {
-  const [isClient, setIsClient] = useState(false)
+  const mapContainerRef = useRef<HTMLDivElement>(null);
+  const mapRef = useRef<L.Map | null>(null);
 
   useEffect(() => {
-    setIsClient(true)
-  }, [])
+    if (mapContainerRef.current && !mapRef.current) {
+      // Initialize map only if it doesn't exist
+      const map = L.map(mapContainerRef.current).setView([lat, lon], 13);
+      mapRef.current = map;
 
-  if (!isClient) {
-    return <div className="h-64 w-full rounded-lg overflow-hidden border bg-muted animate-pulse" />;
-  }
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+      }).addTo(map);
 
-  const position: LatLngExpression = [lat, lon];
+      L.marker([lat, lon]).addTo(map)
+        .bindPopup('Your selected location.')
+        .openPopup();
+    } else if (mapRef.current) {
+      // If map already exists, just update its view
+      mapRef.current.setView([lat, lon], 13);
+      
+      // Optionally, update marker position as well
+      const marker = mapRef.current.getPane('markerPane')?.children[0] as any;
+      if (marker) {
+        marker.setLatLng([lat, lon]);
+      }
+    }
+
+    // Cleanup function to destroy map instance on component unmount
+    return () => {
+      if (mapRef.current) {
+        mapRef.current.remove();
+        mapRef.current = null;
+      }
+    };
+  }, [lat, lon]);
 
   return (
-    <div className="h-64 w-full rounded-lg overflow-hidden border">
-        <MapContainer center={position} zoom={13} scrollWheelZoom={false} style={{ height: "100%", width: "100%" }}>
-            <TileLayer
-            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-            />
-            <Marker position={position}>
-            <Popup>
-                Your selected location.
-            </Popup>
-            </Marker>
-        </MapContainer>
-    </div>
+    <div ref={mapContainerRef} className="h-64 w-full rounded-lg overflow-hidden border" />
   );
 };
 
